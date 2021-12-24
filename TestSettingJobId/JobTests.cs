@@ -23,16 +23,16 @@ namespace TestSettingJobId
 
         [TestMethod]
 
-        public void Test02Equality()
+        public void Test02TestJobsForEquality()
         {
-            Job job1 = new Job();
-            Job job2 = new Job();
+            Job job1 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+            Job job2 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
             Assert.IsFalse(job1.Id == job2.Id);
-           
+
         }
         [TestMethod]
 
-        public void TestJobConstructorSetsAllFields()
+        public void Test03JobConstructorSetsAllFields()
         {
 
             Job job1 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
@@ -40,41 +40,47 @@ namespace TestSettingJobId
             Assert.IsTrue(job1.EmployerName.Value == "ACME");
             Assert.IsTrue(job1.EmployerLocation.Value == "Desert");
             Assert.IsTrue(job1.JobType.Value == "Quality control");
-            //Assert.AreEqual(job1.JobCoreCompetency, "Persistence");
-            
+            Assert.IsTrue(job1.JobCoreCompetency.ToString() == "Persistence");
+
+        }
+
+        [TestMethod]
+
+        public void Test04ToStringNewLineTest()
+        {
+            Job job1 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+            Assert.IsTrue(job1.ToString().StartsWith("\n"));
+            Assert.IsTrue(job1.ToString().EndsWith("\n"));
+        }
+
+        [TestMethod]
+
+        public void Test05TestToStringConstructor()
+        {
+            Job job1 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+            string newLine = $"\nID: 7\n" +
+                $"Name: Product tester\n" +
+                $"Employer: ACME\n" +
+                $"Location: Desert\n" +
+                $"Position Type: Quality control\n" +
+                $"Core Compentency: Persistence\n";
+            Assert.AreEqual(newLine, job1.ToString());
+        }
+        [TestMethod]
+
+        public void Test06TestToStringDataNotAvailable()
+        {
+            Job job1 = new Job("Product tester", new Employer(""), new Location(""), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+            string newLine = $"\nID: 8\n" +
+                $"Name: Product tester\n" +
+                $"Employer: Data Not Available\n" +
+                $"Location: Data Not Available\n" +
+                $"Position Type: Quality control\n" +
+                $"Core Compentency: Persistence\n";
+            Assert.AreEqual(newLine, job1.ToString());
         }
         
-        //    Job job3 = new Job("Ice cream tester", new Employer(""), new Location("Home"), new PositionType("UX"), new CoreCompetency("Tasting ability"));
-        //    Assert.AreEqual(job1.Id, job3.Id);
-        //}
-        //[TestMethod]
-        //public void JobIdIsDiffpublic void JobIdIsDiffer()erent()
-        //{
 
-        //    Job job2 = new Job("Web Developer", new Employer("LaunchCode"), new Location("St. Louis"), new PositionType("Front-end developer"), new CoreCompetency("JavaScript"));
-        //    Job job3 = new Job("Ice cream tester", new Employer(""), new Location("Home"), new PositionType("UX"), new CoreCompetency("Tasting ability"));
-        //    Assert.AreEqual(job2.Id, job3.Id);
-        //}
-        //[TestMethod]
-        //public void TestJobConstructorSetsAllFields()
-        //{
-        //    Job job = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
-        //       Assert.IsTrue(job.Value, job.Name);
-        //}
-        //[TestMethod]
-        //public void TestJobConstructorSetsAllFieldslocation()
-        //{
-        //    Job job = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
-        //    Assert.IsTrue(job.location, job.Location.value);
-        //}
-        //{
-        //    Job job = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
-        //    Assert.IsTrue(job1.Value, job1.Name);
-    }
-        //public void TestMethod()
-        //{
-        //    Job job1 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
-        //    Assert.IsTrue(job2.Value, job1.EmployerName);
-        //}
+    }   
     
 }
